@@ -93,7 +93,7 @@ namespace Micronetes.Hosting
                 {
                     status.Ports = ports.Select(p => p.Port);
 
-                    portString = string.Join(" ", ports.Select(p => $"-p {p.Port}:{p.Port}"));
+                    portString = string.Join(" ", ports.Select(p => $"-p {p.Port}:{(p.Port >= 49900 && p.Port <= 49999 ? 3306 : p.Port)}"));
 
                     // These ports should also be passed in not assuming ASP.NET Core
                     environment["ASPNETCORE_URLS"] = string.Join(";", ports.Select(p => $"{p.Protocol ?? "http"}://*:{p.Port}"));
